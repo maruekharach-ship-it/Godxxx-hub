@@ -1,0 +1,65 @@
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UIS = game:GetService("UserInputService")
+local VirtualUser = game:GetService("VirtualUser")
+
+local player = Players.LocalPlayer
+local speed, tpEnabled, afkEnabled = 1, false, true
+
+-- สร้าง GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "GodsHub"
+gui.ResetOnSpawn = false
+gui.Parent = (gethui and gethui()) or player:WaitForChild("PlayerGui")
+
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 220, 0, 170)
+main.Position = UDim2.new(0.5, -110, 0.4, 0)
+main.BackgroundColor3 = Color3.fromRGB(25, 25, 35)
+main.BorderSizePixel = 0
+main.Parent = gui
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 8)
+
+local function make(class, props, parent)
+    local o = Instance.new(class)
+    for k, v in pairs(props) do o[k] = v end
+    o.Parent = parent
+    if class == "TextButton" or class == "TextBox" then
+        Instance.new("UICorner", o).CornerRadius = UDim.new(0, 6)
+    end
+    return o
+end
+
+local title = make("TextLabel", {
+    Size = UDim2.new(1, -30, 0, 30), Position = UDim2.new(0, 10, 0, 0),
+    BackgroundTransparency = 1, Text = "Gods Hub", Font = Enum.Font.GothamBold,
+    TextSize = 16, TextColor3 = Color3.new(1, 1, 1), TextXAlignment = Enum.TextXAlignment.Left
+}, main)
+
+local body = make("Frame", {
+    Size = UDim2.new(1, 0, 1, -30), Position = UDim2.new(0, 0, 0, 30),
+    BackgroundTransparency = 1
+}, main)
+
+local minBtn = make("TextButton", {
+    Size = UDim2.new(0, 24, 0, 24), Position = UDim2.new(1, -28, 0, 3),
+    BackgroundColor3 = Color3.fromRGB(60, 60, 80), Text = "-",
+    TextColor3 = Color3.new(1, 1, 1), Font = Enum.Font.GothamBold, TextSize = 16
+}, main)
+
+-- ปุ่ม TPWalk
+local tpBtn = make("TextButton", {
+    Size = UDim2.new(1, -20, 0, 32), Position = UDim2.new(0, 10, 0, 5),
+    BackgroundColor3 = Color3.fromRGB(150, 50, 50), Text = "TPWalk: ปิด",
+    TextColor3 = Color3.new(1, 1, 1), Font = Enum.Font.Gotham, TextSize = 14
+}, body)
+
+-- ช่องใส่ความเร็ว
+make("TextLabel", {
+    Size = UDim2.new(0, 80, 0, 32), Position = UDim2.new(0, 10, 0, 45),
+    BackgroundTransparency = 1, Text = "ความเร็ว:", Font = Enum.Font.Gotham,
+    TextSize = 14, TextColor3 = Color3.new(1, 1, 1), TextXAlignment = Enum.TextXAlignment.Left
+}, body)
+
+local speedBox = make("TextBox", {
+    Size = UDim2.new(1, -100, 0, 32), Position = UDim
